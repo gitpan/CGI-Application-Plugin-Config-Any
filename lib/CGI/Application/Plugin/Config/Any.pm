@@ -12,12 +12,12 @@ CGI::Application::Plugin::Config::Any - Add Config::Any Support to CGI::Applicat
 
 =head1 VERSION
 
-Version 0.03
+Version 0.04
 
 =cut
 
-$CGI::Application::Plugin::Config::Any::VERSION = '0.03';
-$CGI::Application::Plugin::Config::Any::DEBUG   = 1;
+$CGI::Application::Plugin::Config::Any::VERSION = '0.04';
+$CGI::Application::Plugin::Config::Any::DEBUG   = 0;
 
 use base 'Exporter';
 use vars '@EXPORT';

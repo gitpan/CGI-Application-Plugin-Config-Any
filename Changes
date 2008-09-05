@@ -1,5 +1,8 @@
 Revision history for CGI-Application-Plugin-Config-Any
 
+0.04    Fri, 5 September 2008 13:24:05 GMT
+        - left $DEBUG on accidentally in 0.03
+
 0.03    Fri, 5 September 2008 11:45:08 GMT
         - moved to CGI::Application::Plugin::Config::Any namespace
         - added function to find a key in the data structure
