@@ -1,5 +1,16 @@
 Revision history for CGI-Application-Plugin-Config-Any
 
+0.10    Fri, 5 September 2008 18:59:01 GMT
+        - MAJOR API CHANGE!
+          THIS VERSION IS NOT BACKWARD COMPATIBLE!
+        - added std_config() for CGI::Application::Standard::Config
+          compliance (thanks to Mark Stosberg for feedback)
+        - renamed init()    to config_init()
+        - renamed param()   to config()
+        - renamed section() to config_section()
+        - renamed getall()  to config_read()
+        - added config_name() method to change current config name
+
 0.04    Fri, 5 September 2008 13:24:05 GMT
         - left $DEBUG on accidentally in 0.03
 

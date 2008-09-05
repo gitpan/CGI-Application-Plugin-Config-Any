@@ -7,5 +7,6 @@ lib/CGI/Application/Plugin/Config/Any.pm
 t/00-load.t
 t/01-basic.t
 t/basic.pl
+t/named/named.pl
 t/pod-coverage.t
 t/pod.t

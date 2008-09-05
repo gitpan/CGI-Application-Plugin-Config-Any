@@ -2,39 +2,52 @@
 
 use strict;
 use warnings;
+use lib ( './t' );
 
-use Test::More tests => 7;
+use Test::More qw/no_plan/;
 
 BEGIN {
-	use_ok( 'CGI::Application::Plugin::Config::Any' );
+	  use_ok( 'CGI::Application::Plugin::Config::Any' );
 }
 
 {
-    my $config = CGI::Application::Plugin::Config::Any->config();
-    ok( $config, 'module loaded' );
-
-    $config->init(
-        'configdir' => './t',
-        'files'     => [ 'basic.pl' ],
-        'params'    => {
-            'use_ext' => 1,
-        },
+    use TestApp;
+    my $test = TestApp->new(
+        PARAMS => {
+            'config_dir'    => './t',
+            'config_files'  => [ 'basic.pl' ],
+            'config_params' => {
+                'use_ext'   => 1,
+            },
+            'config_names'  => {
+                'test'      => {
+                    'config_dir'   => './t/named',
+                    'config_files' => [ 'named.pl' ],
+                }
+            }
+        }
     );
-    
+
     ## check section()
-    my $section = $config->section('Component');
-    ok( ref $section eq 'HASH', 'section(\'Component\') shall return a hashref' );
+    my $section = $test->config_section('Component');
+
+    ok( ref $section eq 'HASH', 'config_section(\'Component\') shall return a hashref' );
     
     ## check param()
-    ok( $config->param( 'name' ) eq 'TestApp', 'param(\'name\') shall return \'TestApp\'' );
+    ok( $test->config( 'name' ) eq 'TestApp', 'config(\'name\') shall return \'TestApp\'' );
     
     ## check deep => buried => key
-    ok( $config->param( 'key' ) eq 'value', 'param(\'key\') shall return \'value\'' );
+    ok( $test->config( 'key' ) eq 'value', 'config(\'key\') shall return \'value\'' );
     
-    ## check getall()
-    my $cfg = $config->getall;
-    ok( ref $cfg eq 'HASH', 'getall() shall return a hashref' );
+    ## check config_read()
+    my $cfg = $test->config_read;
+    ok( ref $cfg eq 'HASH', 'config_read() shall return a hashref' );
 
-    ## check for attribute 'name' in return value of getall()
+    ## check for attribute 'name' in return value of config_read()
     is( $cfg->{ name }, 'TestApp', 'expected key [name] was found and has the right content' );
+    
+    ## change config
+    ok( $test->config_name( 'test' ), 'change config name to \'test\'' );
+    
+    ok( $test->config( 'name' ) eq 'TestAppNamed', 'config(\'name\') shall now return \'TestAppNamed\'' );
 }
