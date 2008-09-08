@@ -23,11 +23,11 @@ CGI::Application::Plugin::Config::Any - Add Config::Any Support to CGI::Applicat
 
 =head1 VERSION
 
-Version 0.10
+Version 0.11
 
 =cut
 
-$CGI::Application::Plugin::Config::Any::VERSION = '0.10';
+$CGI::Application::Plugin::Config::Any::VERSION = '0.11';
 
 
 =head1 SYNOPSIS

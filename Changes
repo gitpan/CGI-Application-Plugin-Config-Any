@@ -1,5 +1,8 @@
 Revision history for CGI-Application-Plugin-Config-Any
 
+0.11    Mon, 8 September 2008 08:34:25 GMT
+        - TestApp.pm missing in MANIFEST
+
 0.10    Fri, 5 September 2008 18:59:01 GMT
         - MAJOR API CHANGE!
           THIS VERSION IS NOT BACKWARD COMPATIBLE!

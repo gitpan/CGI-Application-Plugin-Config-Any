@@ -1,6 +1,6 @@
 ---
 name: CGI-Application-Plugin-Config-Any
-version: 0.10
+version: 0.11
 author:
   - 'Bianka Martinovic <mab@cpan.org>'
 abstract: Add Config::Any Support to CGI::Application
@@ -14,7 +14,7 @@ build_requires:
 provides:
   CGI::Application::Plugin::Config::Any:
     file: lib/CGI/Application/Plugin/Config/Any.pm
-    version: 0.10
+    version: 0.11
 generated_by: Module::Build version 0.2808
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.2.html
