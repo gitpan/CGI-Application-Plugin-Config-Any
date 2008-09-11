@@ -23,11 +23,11 @@ CGI::Application::Plugin::Config::Any - Add Config::Any Support to CGI::Applicat
 
 =head1 VERSION
 
-Version 0.11
+Version 0.12
 
 =cut
 
-$CGI::Application::Plugin::Config::Any::VERSION = '0.11';
+$CGI::Application::Plugin::Config::Any::VERSION = '0.12';
 
 
 =head1 SYNOPSIS
@@ -131,7 +131,7 @@ There are several ways to retrieve a config param:
     # let the module find a param named 'mysetting' without
     # knowing or bothering the section name
 
-See L<bugs_caveats|BUGS/CAVEATS>!
+See L<BUGS/CAVEATS|bugs_caveats>!
 
 =cut
 
@@ -153,7 +153,7 @@ sub config {
 
     my $section = $attrs{'section'};
 
-    if ( $param =~ /^(.*)\.(.*)$/ ) {
+    if ( $param && $param =~ /^(.*)\.(.*)$/ ) {
         $section = $1;
         $param   = $2;
     }
@@ -400,7 +400,7 @@ sub _load {
             foreach ( qw/ config_dir config_files config_params/ ) {
                 my $key = $prefix.uc($_);
                 if ( exists $this->{ $_ } ) {
-                    $self->{$key} = $this->{ $_ };
+                    $self->{$key} = $this->{$_};
                 }
                 $self->{$prefix.'CONFIG_FILES'}
                     = $self->{$prefix.'CONFIG_NAMES'}->{ $name }->{'config_files'};
@@ -505,6 +505,10 @@ sub _find_key {
     }
     
     if ( exists $config->{ $key } ) {
+        $CGI::Application::Plugin::Config::Any::DEBUG
+                and __PACKAGE__->_debug(
+                    "key [$key] found"
+                );
         return $config->{ $key };
     }
     
