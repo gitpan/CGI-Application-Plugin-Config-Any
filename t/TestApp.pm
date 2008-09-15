@@ -5,7 +5,7 @@ use strict;
 use CGI::Application;
 @TestApp::ISA = qw(CGI::Application);
 
-use CGI::Application::Plugin::Config::Any;
+use CGI::Application::Plugin::Config::Any qw/ :all /;
 
 sub setup {
     my $self = shift;

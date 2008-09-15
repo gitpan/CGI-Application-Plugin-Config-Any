@@ -1,5 +1,14 @@
 Revision history for CGI-Application-Plugin-Config-Any
 
+0.13    Mon, 15 September 2008 10:25:45 GMT
+        - methods config_init(), config_name(), config_section() and
+          config_read() are no longer exported by default
+        - Minor fix in method _load() to avoid "use of uninitialized
+          value" message 
+        - Added POD for std_config() method to avoid build errors
+          caused by POD::Coverage
+        - some minor changes in tests
+        
 0.12    Thu, 11 September 2008 15:01:41 GMT
         - added CGI::Application to prerequisites to avoid FAIL reports
         - some minor code changes

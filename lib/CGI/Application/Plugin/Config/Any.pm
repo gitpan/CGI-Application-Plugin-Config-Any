@@ -7,8 +7,15 @@ use strict;
 use warnings;
 
 use base 'Exporter';
-use vars '@EXPORT';
-@EXPORT = qw( config config_init config_name config_section config_read );
+use vars qw/ @EXPORT @EXPORT_OK %EXPORT_TAGS /;
+
+@EXPORT      = qw( config );
+@EXPORT_OK   = qw( config_init config_name config_section config_read );
+%EXPORT_TAGS = ( 
+    'all' =>  [ 
+        qw( config config_init config_name config_section config_read ) 
+    ] 
+); 
 
 use Config::Any;
 
@@ -23,11 +30,11 @@ CGI::Application::Plugin::Config::Any - Add Config::Any Support to CGI::Applicat
 
 =head1 VERSION
 
-Version 0.12
+Version 0.13
 
 =cut
 
-$CGI::Application::Plugin::Config::Any::VERSION = '0.12';
+$CGI::Application::Plugin::Config::Any::VERSION = '0.13';
 
 
 =head1 SYNOPSIS
@@ -93,9 +100,11 @@ files, and even Perl code.)
 
 =head1 EXPORTS
 
-=over 4
+By default, only the L<config|config>() method is exported.
 
-=item config
+B<The following methods are only exported on demand:>
+
+=over 4
 
 =item config_init
 
@@ -106,6 +115,10 @@ files, and even Perl code.)
 =item config_read
 
 =back
+
+You can import them explicitly, or use ':all':
+
+    use CGI::Application::Plugin::Config::Any qw( :all );
 
 
 =head1 METHODS
@@ -131,7 +144,7 @@ There are several ways to retrieve a config param:
     # let the module find a param named 'mysetting' without
     # knowing or bothering the section name
 
-See L<BUGS/CAVEATS|bugs_caveats>!
+See also L<BUGS/CAVEATS|bugs_caveats>!
 
 =cut
 
@@ -354,8 +367,22 @@ sub config_read {
     
 }   # --- end sub config_read ---
 
-# required by C::A::Standard::Config;
+
+=head2 std_config
+
+For CGI::Application::Standard::Config compatibility. Just returns 
+'TRUE'.
+
+=cut
+
+#-------------------------------------------------------------------
+# METHOD:     std_config
+# + author:   Bianka Martinovic
+# + reviewed: Bianka Martinovic
+# + purpose:  CGI::Application::Standard::Config compatibility
+#-------------------------------------------------------------------
 sub std_config { return 1; }
+
 
 #-------------------------------------------------------------------
 #               + + + + + INTERNAL METHODS + + + + +
@@ -397,7 +424,7 @@ sub _load {
         
             my $this = $self->{$prefix.'CONFIG_NAMES'}->{ $name };
 
-            foreach ( qw/ config_dir config_files config_params/ ) {
+            foreach ( qw/ config_dir config_files config_params / ) {
                 my $key = $prefix.uc($_);
                 if ( exists $this->{ $_ } ) {
                     $self->{$key} = $this->{$_};
@@ -469,9 +496,20 @@ sub _load {
     }
 
     if ( $args{'param'} ) {
-    
-        my $value = $config{ $args{'param'} }
-                 || $config{ $args{'section'} }->{ $args{'param'} };
+
+        no strict 'vars';
+        
+        my $value;
+        
+        if ( exists $config{ $args{'param'} } ) {
+            $value = $config{ $args{'param'} };
+        }
+        elsif ( $args{'section'} 
+             && $config{ $args{'section'} }
+             && $config{ $args{'section'} }->{ $args{'param'} }
+        ) {
+            $value = $config{ $args{'section'} }->{ $args{'param'} };
+        }
                  
         unless ( defined $value ) {
             $CGI::Application::Plugin::Config::Any::DEBUG

@@ -6,10 +6,6 @@ use lib ( './t' );
 
 use Test::More qw/no_plan/;
 
-BEGIN {
-	  use_ok( 'CGI::Application::Plugin::Config::Any' );
-}
-
 {
     use TestApp;
     my $test = TestApp->new(
@@ -28,16 +24,16 @@ BEGIN {
         }
     );
 
-    ## check section()
-    my $section = $test->config_section('Component');
-
-    ok( ref $section eq 'HASH', 'config_section(\'Component\') shall return a hashref' );
-    
     ## check param()
     ok( $test->config( 'name' ) eq 'TestApp', 'config(\'name\') shall return \'TestApp\'' );
     
     ## check deep => buried => key
     ok( $test->config( 'key' ) eq 'value', 'config(\'key\') shall return \'value\'' );
+    
+    ## check section()
+    my $section = $test->config_section('Component');
+
+    ok( ref $section eq 'HASH', 'config_section(\'Component\') shall return a hashref' );
     
     ## check config_read()
     my $cfg = $test->config_read;
