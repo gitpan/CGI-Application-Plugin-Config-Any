@@ -1,5 +1,8 @@
 Revision history for CGI-Application-Plugin-Config-Any
 
+0.14    Wed, 17 July 2013 16:47:40 GMT
+        - fixed PDO problem causing fail reports
+
 0.13    Mon, 15 September 2008 10:25:45 GMT
         - methods config_init(), config_name(), config_section() and
           config_read() are no longer exported by default

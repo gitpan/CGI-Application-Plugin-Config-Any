@@ -34,7 +34,7 @@ Version 0.13
 
 =cut
 
-$CGI::Application::Plugin::Config::Any::VERSION = '0.13';
+$CGI::Application::Plugin::Config::Any::VERSION = '0.14';
 
 
 =head1 SYNOPSIS
@@ -144,7 +144,7 @@ There are several ways to retrieve a config param:
     # let the module find a param named 'mysetting' without
     # knowing or bothering the section name
 
-See also L<BUGS/CAVEATS|bugs_caveats>!
+See also L<BUGS|bugs>!
 
 =cut
 
@@ -640,7 +640,7 @@ __END__
 
 Bianka Martinovic, C<< <mab at cpan.org> >>
 
-=head1 BUGS/CAVEATS
+=head1 BUGS
 
 B<This module is "work in progress" and subject to change without warning!>
 
